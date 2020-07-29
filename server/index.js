@@ -15,4 +15,6 @@ require('@babel/register')({
   ],
 })
 
-require('../dist/server')
+
+
+process.env.NODE_ENV === 'production' ? require('../dist/server') : require('./server.js')

@@ -8,7 +8,7 @@ const dictionary = {
   humidity: 'Humidity',
 }
 function getData(data) {
-  if (!data) return []
+  if (!data || !data.main) return []
   return Object.keys(data.main).reduce((acc, key) => {
     if (whitelistKeys.includes(key)) {
       acc.push({
@@ -19,10 +19,19 @@ function getData(data) {
     return acc
   }, [])
 }
+
+function getApi() {
+  const isProduction = process.env.NODE_ENV === 'production'
+
+  if (isProduction) {
+    return `http://localhost:8080`
+  } else {
+    return `http://localhost:4000`
+  }
+}
 const WeatherWidget = props => {
   const [weather, setWeather] = useState(getData(props.weather))
-  const [city, setCity] = useState(props.weather && props.weather.name)
-  // const [name, setName] = useState(props.weather && props.weather.name)
+  const [city, setCity] = useState(props.weather ? props.weather.name : 'Copenhagen')
   const [error, setError] = useState('')
   const [isLoading, setLoading] = useState(false)
 
@@ -33,7 +42,7 @@ const WeatherWidget = props => {
       setLoading(true)
       try {
         const weather = await fetch(
-          `http://localhost:8080/get-weather?city=${city}`
+          `${getApi()}/get-weather?city=${city}`
         )
         const data = await weather.json()
 
@@ -51,6 +60,7 @@ const WeatherWidget = props => {
           }
         }
       } catch (error) {
+        console.log('got error')
         setError(error.message)
       }
     }
@@ -68,7 +78,7 @@ const WeatherWidget = props => {
     setCity(form.get('city'))
   }
   return (
-    <div>
+    <div className="weather-widget">
       <div className="panel panel-info">
         <h4 className="panel-heading">
           Weather in {city ? city : ''}

@@ -2,11 +2,10 @@ const https = require('https')
 
 const WEATHER_API = 'https://api.openweathermap.org/data/2.5/weather?q='
 
-// const APIKEY = '166d00e26d3ff2c6149e89feccc5c59a'
-const APIKEY = '9c1e7d5128841f5d64657a93cb33a8bb'
+const APIKEY = '166d00e26d3ff2c6149e89feccc5c59a'
 
-function constructURL(city) {
-  const url = `${WEATHER_API}${city}&units=metric&appid=${APIKEY}`
+function constructURL(city ='Copenhagen') {
+  const url = `${WEATHER_API}${city || 'Copenhagen'}&units=metric&appid=${APIKEY}`
   return url
 }
 
@@ -25,6 +24,7 @@ export async function getWeather(city) {
           if (body.cod === 404) {
             reject(body)
           }
+
           resolve(body)
         })
       })

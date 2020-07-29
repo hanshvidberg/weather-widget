@@ -4,13 +4,15 @@ import fs from 'fs'
 import express from 'express'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import cors from 'cors'
 
 import App from '../src/App'
 
 import { getWeather } from '../src/weather-service/index'
 
-const PORT = 8080
+const PORT = process.env.NODE_ENV === 'production' ? 8080 : 4000
 const app = express()
+
 
 const router = express.Router()
 
@@ -39,6 +41,7 @@ router.use(
   express.static(path.resolve(__dirname, '..', 'build'), { maxAge: '30d' })
 )
 
+app.use(cors())
 // tell the app to use the above rules
 app.use(router)
 
@@ -51,7 +54,6 @@ app.get('/get-weather', async (req, res) => {
   }
 })
 
-// app.use(express.static('./build'))
 app.listen(PORT, () => {
   console.log(`SSR running on port ${PORT}`)
 })

@@ -1,24 +1,21 @@
 .App {
-  /* text-align: center; */
-  max-width: 420px;
+  max-width: 520px;
   margin: 0 auto;
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.App-header {
-  /* background-color: #282c34; */
-  min-height: 100vh;
-  /* color: white; */
-}
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.weather-widget {
+   padding: 3rem;
+    box-shadow: 0 2px 20px;
+    border-radius: 50px;
+    margin-top: 70px;
 }

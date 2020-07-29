@@ -8,14 +8,16 @@
     "react-scripts": "3.0.1"
   },
   "scripts": {
-    "start": "run-s start:server weather-service",
+    "start": "NODE_ENV=production run-s start:server weather-service:prod",
     "start:react": "react-scripts start",
-    "build:server": "babel ./server/server.js -d dist",
-    "start:server": "run-s build build:server",
+    "dev": "NODE_ENV=development run-p start:react weather-service",
+    "build:server": "NODE_ENV=production && babel ./server/server.js -d dist",
+    "start:server": "NODE_ENV=development && run-s build build:server",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "weather-service": "node ./server/index.js"
+    "weather-service:prod": "NODE_ENV=production node ./server/index.js",
+    "weather-service": "NODE_ENV=development node ./server/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"

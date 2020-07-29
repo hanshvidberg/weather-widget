@@ -10,13 +10,15 @@ var _react = _interopRequireDefault(require("react"));
 
 var _server = _interopRequireDefault(require("react-dom/server"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var _App = _interopRequireDefault(require("../src/App"));
 
 var _index = require("../src/weather-service/index");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-const PORT = 8080;
+const PORT = process.env.NODE_ENV === 'production' ? 8080 : 4000;
 const app = (0, _express.default)();
 
 const router = _express.default.Router();
@@ -38,7 +40,8 @@ const serverRenderer = (req, res, next) => {
 router.use('^/$', serverRenderer);
 router.use(_express.default.static(_path.default.resolve(__dirname, '..', 'build'), {
   maxAge: '30d'
-})); // tell the app to use the above rules
+}));
+app.use((0, _cors.default)()); // tell the app to use the above rules
 
 app.use(router);
 app.get('/get-weather', async (req, res) => {
@@ -48,8 +51,7 @@ app.get('/get-weather', async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-}); // app.use(express.static('./build'))
-
+});
 app.listen(PORT, () => {
   console.log(`SSR running on port ${PORT}`);
 });

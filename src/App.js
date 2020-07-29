@@ -5,9 +5,8 @@ import WeatherWidget from './components/WeatherWidget'
 function App(props) {
   return (
     <div className="App">
-      <header className="App-header">
-        <WeatherWidget weather={props.data} />
-      </header>
+      <header className="App-header">Weather widget, SSR React Application</header>
+      <WeatherWidget weather={props.data} />
       <script
         id="initial"
         dangerouslySetInnerHTML={{

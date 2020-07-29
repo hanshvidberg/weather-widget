@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
-const props = window.INITIAL
+const props = window.INITIAL || {}
 
 ReactDOM.hydrate(<App data={props.data} />, document.getElementById('root'))
 
