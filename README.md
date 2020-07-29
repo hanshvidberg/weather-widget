@@ -10,6 +10,7 @@ Focus on this assignment has been to
 - make sure it is serverside rendered
 - works without js
 - update querystring parameter to get a sharable link
+- added a smoketest for weather widget
 
 ## Available Scripts
 
@@ -18,5 +19,8 @@ In the project directory, you can run:
 ### `npm start`
 
 This will compile the app for production and will start serving the app.
+
+### `npm dev`
+This starts the app in development with the server and weather-service on port `4000` and the react client app on `3000`
 
 
